@@ -1,0 +1,109 @@
+
+
+
+{% extends 'base.html' %}
+
+{% block contenido %}
+
+<div class="container-fluid ">
+	<div class="row no-gutters">
+		<div class="card  col-sm-12 col-md-6 col-lg-4" style="width: 
+		60rem;border-radius: 15px;border-color: black;border-width: 8px;
+		background-color: rgb(169, 132, 63); margin-left: 50px;max-width: 55rem ">
+			<div style="text-align: center;">
+				<h5 class="card-title">{{noticia.titulo}} </h5>
+			</div>
+			<img src="{{noticia.imagen.url}}" style="border-radius: 10px;">
+			<h5 class="card-title">Comentario</h5>
+			
+		</div>
+		</div>
+
+
+		<div class="row no-gutters">
+		<div class="container col-md-8 mx-5" style="background-color:rgb(255, 255, 255);">
+			{{noticia.contenido}}
+		</div>
+		<div class="container col-md-2 px-0" style="margin-left:7px;">
+			<h4 style="color: azure;">CATEGORÍAS</h4>
+				{% if noticia.categoria %}
+				{% for categoria in noticia.categoria.all %}
+  					<div class="d-grid gap-2" style="padding-bottom: 3px;">
+						<button class="btn-categoria btn-categoria-{{ categoria.pk }}"
+						 type="button" style="text-align: start; width: 320px;color: white;">
+						 {{ categoria.nombre }}</button>
+					</div>
+					
+				{% endfor %}
+
+				</ul>
+				{% endif %}</h4>
+
+		</div>
+	</div>
+	<h4 style="color: aliceblue;">Comentar</h4>
+	<div class="row" class="mb-3">
+		<div class="container">
+			{% if user.is_authenticated %}
+			<form method="POST" action="{% url 'comentarios:agregar_comentarios' noticia.pk %}">{%csrf_token%}
+				<textarea class="col-12" type="text" name="comentario"></textarea>
+					<input class="btn-go btn" type="submit" name="" value="Guardar">
+			</form>
+		</div>
+			{% endif %}
+		
+</div>
+
+
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="panel panel-default widget">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-comment"></span>
+                <h3 style="color: blueviolet;" class="panel-title">
+                    Comentarios recientes</h3>
+                <span class="label label-info">
+                    78</span>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    {% for c in noticia.MisComentarios %}
+					<li class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-2 col-md-1">
+                                <img src="http://placehold.it/80" class="img-circle img-responsive" alt="" /></div>
+                            <div class="col-xs-10 col-md-11">
+                                <div>
+                                    <a href="http://www.jquery2dotnet.com/2013/10/google-style-login-page-desing-usign.html">
+                                        Google Style Login Page Design Using Bootstrap</a>
+                                    <div class="mic-info">
+                                        By: <a href="#">{{c.usuario}}</a> on {{c.creado}}
+                                    </div>
+                                </div>
+                                <div class="comment-text">
+                                    {{c.texto}}
+                                </div>
+                                <div class="action">
+                                    <button type="button" class="btn btn-primary btn-xs">
+                                        <span class="glyphicon glyphicon-pencil">Editar</span>
+                                    </button>
+                                    <button type="button" class="btn btn-success btn-xs" title="Approved">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-xs" title="Delete">
+                                        <span class="glyphicon glyphicon-trash">Borrar</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+					{%endfor%}
+                    
+                <a href="#" class="btn btn-primary btn-sm btn-block" role="button"><span class="glyphicon glyphicon-refresh"></span> More</a>
+            </div>
+        </div>
+    </div>
+
+	{% endblock contenido %}

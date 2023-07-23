@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+
+{% block contenido %}
+
+  
+  <section class="vh-70 gradient-custom">
+    <div class="container mt-2" style="background-color:gra; border-radius: 15px di;">
+      <div class="row gutter-4">
+        <div class="container-fluid col-9 px-4">
+          <h2 style="color: rgb(0, 0, 0); padding-top: 20px;">Creacion de noticia</h2>
+          <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.errors}} 
+            <div class="form-outline form-white mb-5">
+              <label style="color: rgb(0, 0, 0)" for="{{ form.titulo.id_for_label}}">Titulo</label>
+              {{ form.titulo|add_class:"form-control mb-n1" }}
+            </div>
+            <div class="form-outline form-white mb-5">
+              <label style="color: rgb(0, 0, 0)" for="{{ form.contenido.id_for_label }}">Contenido</label>
+              {{ form.contenido|add_class:"form-control form-control-lg "}}
+            </div>
+            <div class="form-outline form-white mb-5">
+              <label style="color: rgb(0, 0, 0)" for="{{ form.imagen.id_for_label }}">Imagen</label>
+              {% render_field form.imagen class="search-label-icon" %}
+            </div>
+          </div>
+          <div class=" container col-3">
+            <div class="form-group">
+              <h2 style="color: rgb(0, 0, 0); padding-top: 20px;">Categorias</h2>
+              {% for c in form.categoria %}
+              <div class="form-check ">
+                  {{ c }}
+                  
+              </div>
+              {% endfor %}
+              
+            </div>
+          </div>
+            <button style="background-color: blue;" class="btn btn-outline-light btn-lg px-5" type="submit">CREAR</button>
+          </form>
+            <a href="{% url 'home' %}" class="btn btn-outline-light btn-lg px-5 mb-n1">HOME</a>
+        </div>
+      </div>
+    </div>
+  </section>        
+      
+  {% endblock contenido %}
+        
+
+  
+  
+  
+     
+
+  
+
+
+

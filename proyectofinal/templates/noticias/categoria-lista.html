@@ -1,0 +1,23 @@
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+
+<div class="container text-bg-dark my-3">
+	<div class="row">
+        {% for categoria in object_list %}
+			<div class="card text-bg-dark col-sm-12 col-md-6 col-lg-4 my-3">
+				<h2 style="text-align: center;">{{ categoria.0 }}</h2>
+				<img src="{{ categoria.1.url }}" class="card-img-top" alt="Imagen de la noticia" style="height: 150px; object-fit: contain;">
+				<div class="card-body">
+				 
+				
+				</div>
+			</div>
+		{% endfor %}
+    </div>
+
+
+    {% endblock contenido %}
