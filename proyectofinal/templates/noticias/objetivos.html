@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+
+<div class=" container" style="text-align: center;padding-top: 40px;">
+    <img src="{{categoria.imagen.url}}" style="border-radius: 10px;width: 35%;">
+    <h1 style="color: aliceblue;text-align: center;">Objetivos de la categoría {{ categoria }}</h1>
+    {% if objetivos %}
+    <div class="container d-flex col-md-8" style="background-color:rgb(255, 255, 255);
+    border-radius: 10px;text-align: start;padding-top: 10px;" >
+        {% for objetivo in objetivos %}
+            <h4>{{ categoria_seleccionada }}</h4>
+        <div>
+            {{ objetivo.Objetivos|linebreaks}} -
+        </div>
+        {% endfor %}
+        {% else %}
+            <p style="color: aliceblue;">No hay objetivos para esta categoría</p>
+        {% endif %}
+        </div>
+    </div>
+</div>
+
+
+   
+   
+
+
+{% endblock contenido %}

@@ -143,7 +143,7 @@
 .btn-categoria{
   display: inline-block;
   font-weight: 400;
-  color: #212529;
+  color: #fff;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
@@ -158,9 +158,14 @@
   line-height: 1.5;
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-border-radius: 5px;
+  border-radius: 5px;
+  opacity: .7;
 }
 
+.btn-categoria:hover{
+  opacity: 1;
+
+}
 
 .btn-categoria-1 {
   background-color: rgb(231,34,60)

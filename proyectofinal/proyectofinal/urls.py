@@ -26,5 +26,6 @@ urlpatterns = [
 
      #URLS DE COMENTARIOS
     path('comentarios/', include('apps.comentarios.urls')),
+    path('categorias', views.CategoriasF, name='categorias'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

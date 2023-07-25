@@ -1,9 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView, ListView,DeleteView, UpdateView
 from django.urls import reverse_lazy
 
-from .models import Noticia,Categoria
+from .models import Noticia,Categoria,Objetivo
 from .forms import Form_Alta,Form_Modificacion
+#CONTROLA SI EL USUARIO ESTA LOGEADO EN UNA VISTA BASADA EN CLASES
+from django.contrib.auth.mixins import LoginRequiredMixin
+#CONTROLA SI EL USUARIO ESTA LOGEADO EN UNA VISTA BASADA EN FUNCIONEs
+from django.contrib.auth.decorators import login_required
 
 #CONTROLA SI EL USUARIO ESTA LOGEADO
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -29,7 +33,7 @@ class ListarNoticias(ListView):
 
 
 
-
+@login_required
 def ListarNoticiasF(request):
 	ctx = {}
 	todas_noticias = Noticia.objects.all()
@@ -63,20 +67,19 @@ def DetalleNoticiaF(request, pk):
 # select * from Noticia where categororia = deportes
 # Noticia.objects.filter(categoria = deportes)
 
-class Categorias(ListView):
-	model = Categoria
-	template_name = 'noticias/categorias.html'
+#class Categorias(ListView):
+	#model = Categoria
+	#template_name = 'noticias/categorias.html'
+
+
+
 
 def CategoriasF(request):
     ctx = {}
-    lista_cat = []
-    categorias = Categoria.objects.all()
-    for categoria in categorias:
-        nombre = categoria.nombre
-        imagen = categoria.imagen
-        lista_cat.append((nombre, imagen))
-    ctx['object_list'] = lista_cat
-    return render(request, 'noticias/categoria-lista.html', ctx)
+    lista_cate = Categoria.objects.all()
+    ctx['object_list'] = lista_cate
+    return render(request, 'noticias/categorias.html', ctx)
+
 
 		
 
@@ -85,7 +88,7 @@ def Filtro_Categoria(request, pk):
 	cate = Categoria.objects.get(id = pk)
 	filtadas = Noticia.objects.filter(categoria = cate)
 	ctx['object_list'] = filtadas
-	return render(request, 'noticias/listar.html', ctx)
+	return render(request, 'noticias/categoria-lista.html', ctx)
 
 class BorrarNoticia(DeleteView):
 	model = Noticia
@@ -105,11 +108,11 @@ class ModificarNoticia(UpdateView):
 	model = Noticia
 	form_class = Form_Modificacion
 	template_name = 'noticias/Modificar.html'
-	success_url = reverse_lazy('noticias:listar_noticias')
+	success_url = reverse_lazy('noticias/modificar.html')
 
 
-class Listarcategorias(ListView):
-	model = Categoria
-	template_name = 'noticias/crear.html'
-
-
+def objetivos_por_categoria(request, categoria_id):
+    categoria_seleccionada = get_object_or_404(Categoria, pk=categoria_id)
+    objetivos = Objetivo.objects.filter(categoria=categoria_seleccionada)
+    
+    return render(request, 'noticias/objetivos.html', {'categoria': categoria_seleccionada, 'objetivos': objetivos})

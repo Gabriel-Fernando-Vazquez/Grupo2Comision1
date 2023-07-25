@@ -1,13 +1,13 @@
 from django.shortcuts import render
-from apps.noticias.models import Noticia 
+from apps.noticias.models import Noticia, Categoria
 
 def Home(request):
-	ctx = {}
-	lista_noticias = Noticia.objects.order_by('-creado')
-	ctx['object_list'] = lista_noticias[0:3]
-	ctx['sola'] = lista_noticias[1]
-	ctx['otras'] = lista_noticias[4:9] 
-	return render(request, 'inicio.html', ctx)
+	#ctx = {}
+	#lista_noticias = Noticia.objects.order_by('-creado')
+    #ctx['object_list'] = lista_noticias[0:3]
+	#ctx['sola'] = lista_noticias[1]
+	#ctx['otras'] = lista_noticias[4:9] 
+	return render(request, 'inicio.html') #, ctx)
 
 def SobreNosotros(request):
 	return render(request,'sobre-nosotros.html')
@@ -36,3 +36,10 @@ def OrdTitDesc(request):
 	lista_noticias = Noticia.objects.order_by('-titulo')
 	ctx['object_list'] = lista_noticias[0:6]
 	return render(request, 'ord-tit-desc.html', ctx)
+
+
+def CategoriasF(request):
+    ctx = {}
+    lista_cate = Categoria.objects.all()
+    ctx['object_list'] = lista_cate
+    return render(request, 'noticias/categorias.html', ctx)

@@ -1,17 +1,22 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block contenido %}
-	
-	<div class="container">
-    <div class="row mt-3">
-      <div class="col-md-9 mx-auto mb-5">
-      	 {% for cat in object_list %}
-            <a href="{% url 'noticias:filtro_categoria' cat.pk %}">
-              {{cat.nombre}}
-            </a><br><br>
-         {% endfor %}
-      
-      </div>
+<div class="container m-3 p-2 text-bg-dark mx-auto">
+    <div class="row">
+        <h4 class="mb-3">Seleccione una categoria para ver los objetivos</h4>
+        <hr class="mb-3">
     </div>
-  </div>
+    <div class="row">
+        {% for n in object_list %}
+        <div class="card col-xs-12 col-sm-6 col-md-3 col-lg-2 bg-dark">
+            <li>{{ categoria.nombre }}</li>
+                <a href="{% url 'noticias:objetivos_categoria' n.pk %}" class="text-decoration-none">
+                    <img class="img-cat d-block mx-auto" src="{{ n.imagen.url }}" alt="Imagen de la categoria">
+                </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock contenido %}

@@ -6,7 +6,7 @@ from .models import *
 class Form_Alta(forms.ModelForm):
     class Meta:
         model = Noticia
-        fields = ('titulo', 'contenido', 'imagen', 'categoria')
+        fields = ('titulo','descripcion','contenido', 'imagen', 'categoria')
         widgets = {
             'categoria': forms.CheckboxSelectMultiple(attrs={
                 'class': 'form-check-input',

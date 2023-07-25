@@ -14,14 +14,16 @@ urlpatterns = [
 
     path('Detalle/<int:pk>', views.DetalleNoticiaF, name="detalle_noticias"),
 
-    path('Categorias/', views.Categorias.as_view(), name="categorias"),
-
     path('Filtro/<int:pk>', views.Filtro_Categoria, name="filtro_categoria"),
 
     path('Borrar/<int:pk>', views.BorrarNoticia.as_view(), name="borrar_noticia"),
 
     path('Modificar/<int:pk>', views.ModificarNoticia.as_view(), name="modificar_noticia"),
    
-    path('listar_categorias', views.CategoriasF, name='listar_categorias'),
+    path('categorias', views.CategoriasF, name='categorias'),
+
     
-]
+     #Trea los objetivos de la categoria seleccionada
+    path('objetivos/<int:categoria_id>/', views.objetivos_por_categoria, name = 'objetivos_categoria'),
+    # Trae todas las categorias 
+  ]
