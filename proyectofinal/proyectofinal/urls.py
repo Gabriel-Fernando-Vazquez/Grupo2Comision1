@@ -26,6 +26,11 @@ urlpatterns = [
 
      #URLS DE COMENTARIOS
     path('comentarios/', include('apps.comentarios.urls')),
-    path('categorias', views.CategoriasF, name='categorias'),
+    
+     #URLS categorias-objetivos
+    path('Categorias_objetivos', views.Categorias_objetivos, name='categorias_objetivos'),
+      #Trea los objetivos de la categoria seleccionada
+    path('objetivos/<int:categoria_id>/', views.objetivos_por_categoria, name = 'objetivos_categoria'),
+    # Trae todas las categorias para buscar los objtivos
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

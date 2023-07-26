@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.views.generic import CreateView, ListView,DeleteView, UpdateView
 from django.urls import reverse_lazy
 
@@ -74,7 +74,7 @@ def DetalleNoticiaF(request, pk):
 
 
 
-def CategoriasF(request):
+def Categorias(request):
     ctx = {}
     lista_cate = Categoria.objects.all()
     ctx['object_list'] = lista_cate
@@ -111,8 +111,3 @@ class ModificarNoticia(UpdateView):
 	success_url = reverse_lazy('noticias/modificar.html')
 
 
-def objetivos_por_categoria(request, categoria_id):
-    categoria_seleccionada = get_object_or_404(Categoria, pk=categoria_id)
-    objetivos = Objetivo.objects.filter(categoria=categoria_seleccionada)
-    
-    return render(request, 'noticias/objetivos.html', {'categoria': categoria_seleccionada, 'objetivos': objetivos})

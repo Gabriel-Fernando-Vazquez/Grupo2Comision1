@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from apps.noticias.models import Noticia, Categoria
+from django.shortcuts import render, get_object_or_404
+from apps.noticias.models import Noticia, Categoria, Objetivo
 
 def Home(request):
 	#ctx = {}
@@ -38,8 +38,16 @@ def OrdTitDesc(request):
 	return render(request, 'ord-tit-desc.html', ctx)
 
 
-def CategoriasF(request):
+def Categorias_objetivos(request):
     ctx = {}
     lista_cate = Categoria.objects.all()
     ctx['object_list'] = lista_cate
-    return render(request, 'noticias/categorias.html', ctx)
+    return render(request, 'categorias-objetivos.html', ctx)
+
+
+def objetivos_por_categoria(request, categoria_id):
+    categoria_seleccionada = get_object_or_404(Categoria, pk=categoria_id)
+    objetivos = Objetivo.objects.filter(categoria=categoria_seleccionada)
+    
+    return render(request, 'objetivos.html', {'categoria': categoria_seleccionada, 'objetivos': objetivos})
+

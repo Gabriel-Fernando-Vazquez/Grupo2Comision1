@@ -11,7 +11,7 @@
         {% for n in object_list %}
         <div class="card col-xs-12 col-sm-6 col-md-3 col-lg-2 bg-dark">
             <li>{{ categoria.nombre }}</li>
-                <a href="{% url 'noticias:objetivos_categoria' n.pk %}" class="text-decoration-none">
+                <a href="{% url 'objetivos_categoria' n.pk %}" class="text-decoration-none">
                     <img class="img-cat d-block mx-auto" src="{{ n.imagen.url }}" alt="Imagen de la categoria">
                 </a>
         </div>
